@@ -1,0 +1,21 @@
+import pandas as pd
+
+url = 'https://raw.githubusercontent.com/ChongCheeYung/classfolder/main/shopee.csv'
+df = pd.read_csv(url)
+df.head()
+
+import matplotlib.pyplot as plt
+
+# Check the column names in the DataFrame
+df.columns
+
+top_20_df = df.sort_values(by='Percentage', ascending=False).head(20)
+
+# Plotting the top 20 highest percentages
+plt.figure(figsize=(10, 6))
+plt.barh(top_20_df['title'], top_20_df['Percentage'], color='skyblue')
+plt.xlabel('Percentage')
+plt.ylabel('Title')
+plt.title('Top 20 Highest Percentage')
+plt.gca().invert_yaxis()  # Invert y-axis to show the highest percentage at the top
+plt.show()
