@@ -1,0 +1,19 @@
+# reducer.py
+
+import sys
+
+def reducer():
+    top_percentages = []
+    
+    for line in sys.stdin:
+        percentage, record = line.strip().split('\t', 1)
+        top_percentages.append((float(percentage), record))
+        top_percentages = sorted(top_percentages, reverse=True)[:20]
+    
+    for percentage, record in top_percentages:
+        print(record)
+
+if __name__ == "__main__":
+    reducer()
+
+aws emr add-steps --cluster-id <YourClusterID> --steps Type=STREAMING,Name="Top20Percentages",ActionOnFailure=CONTINUE,Args=["-files","s3://your-bucket/mapper.py,s3://your-bucket/reducer.py","-mapper","mapper.py","-reducer","reducer.py","-input","s3://your-bucket/shopee.csv","-output","s3://your-bucket/output/"]
