@@ -1,0 +1,14 @@
+# mapper.py
+
+import sys
+
+def mapper():
+    for line in sys.stdin:
+        columns = line.strip().split(',')
+        if columns[0] != 'posting_id':  # Skip header
+            percentage = float(columns[-2])
+            print(f'{percentage}\t{line.strip()}')
+
+if __name__ == "__main__":
+    mapper()
+
